@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function MakeBooking(): JSX.Element {
     const [firstname, setFirstname] = useState<string>("");
@@ -7,7 +7,24 @@ function MakeBooking(): JSX.Element {
     const [mailingList, setMailingList] = useState<boolean>(false);
     const [numberOfPeople, setNumberOfPeople] = useState<number|null>(null);
     const [date, setDate] = useState<string>(new Date().toISOString().substring(0, 10));
-    const [time, setTime] = useState<string|null>(null)
+    const [possibleTimes, setPossibleTimes] = useState<string[]>(['17:00', '17:30'])
+    const [time, setTime] = useState<string|null>(null);
+
+    useEffect(() => {
+        getPossibleTimes(date);
+    }, [])
+
+    const getPossibleTimes = async (selectedDate: string) => {
+        //get all bookings on selected date with table capacity >= group size
+        /*
+        const possTimes = [17:00, 17:30, ...22:00]
+        for each booking time
+            delete that time and next 2 times
+        see if there are any free slots of 1.5 hours left
+        return the start times in an array = setPossibleTimes
+
+        */
+    }
 
     const handleSubmit = async () => {
         const body = {
@@ -43,7 +60,19 @@ function MakeBooking(): JSX.Element {
             )}
           </p>
           <label htmlFor="date">Choose a date:</label>
-        <input type="date" id="date" min={new Date().toISOString().substring(0, 10)} value={date} onChange={(e) => setDate(e.target.value)}/>
+        <input type="date" id="date" min={new Date().toISOString().substring(0, 10)} value={date} onChange={(e) => {setDate(e.target.value); getPossibleTimes(e.target.value)}}/>
+        <label htmlFor="time">Choose a time:</label>
+
+        <select id="time" onChange={(e) => {setTime(e.target.value)}}>
+        <option disabled selected> -- select an option -- </option>
+
+
+                {possibleTimes.map((possibleTime, i) => {
+                    return (
+                        <option key={i} value={possibleTime}>{possibleTime}</option>
+                    )
+                })}
+        </select>
         <button type="button" onClick={handleSubmit}>Submit</button>
     </>
     )
