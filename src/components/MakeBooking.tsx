@@ -1,20 +1,25 @@
+import axios from "axios";
 import { useEffect, useState } from "react";
+import { baseUrl } from "../utils/baseUrl";
 
 function MakeBooking(): JSX.Element {
     const [firstname, setFirstname] = useState<string>("");
     const [surname, setSurname] = useState<string>("");
     const [email, setEmail] = useState<string>("");
     const [mailingList, setMailingList] = useState<boolean>(false);
-    const [numberOfPeople, setNumberOfPeople] = useState<number|null>(null);
+    const [numberOfPeople, setNumberOfPeople] = useState<number>(2);
     const [date, setDate] = useState<string>(new Date().toISOString().substring(0, 10));
-    const [possibleTimes, setPossibleTimes] = useState<string[]>(['17:00', '17:30'])
+    const [possibleTimes, setPossibleTimes] = useState<string[]|null>(null)
     const [time, setTime] = useState<string|null>(null);
 
     useEffect(() => {
-        getPossibleTimes(date);
+        getPossibleTimes();
     }, [])
 
-    const getPossibleTimes = async (selectedDate: string) => {
+    const getPossibleTimes = async () => {
+        const res: string[] = await axios.get(`${baseUrl}/possibletimes/${date}/${numberOfPeople}`);
+        setPossibleTimes(res.data);
+        setTime(null);
         //get all bookings on selected date with table capacity >= group size
         /*
         const possTimes = [17:00, 17:30, ...22:00]
@@ -60,20 +65,38 @@ function MakeBooking(): JSX.Element {
             )}
           </p>
           <label htmlFor="date">Choose a date:</label>
-        <input type="date" id="date" min={new Date().toISOString().substring(0, 10)} value={date} onChange={(e) => {setDate(e.target.value); getPossibleTimes(e.target.value)}}/>
-        <label htmlFor="time">Choose a time:</label>
+        <input type="date" id="date" min={new Date().toISOString().substring(0, 10)} value={date} onChange={(e) => {setDate(e.target.value); getPossibleTimes()}}/>
+        <label htmlFor="number-of-people">Group size (max 10):</label>
+        <select id="number-of-people" onChange={(e) => {setNumberOfPeople(parseInt(e.target.value)); getPossibleTimes()}}>
+            <option>1</option>
+            <option selected>2</option>
+            <option>3</option>
+            <option>4</option>
+            <option>5</option>
+            <option>6</option>
+            <option>7</option>
+            <option>8</option>
+            <option>9</option>
+            <option>10</option>
+        </select>
 
+        <label htmlFor="time">Choose a time:</label>
+        {possibleTimes ?
+        <>
         <select id="time" onChange={(e) => {setTime(e.target.value)}}>
         <option disabled selected> -- select an option -- </option>
-
-
                 {possibleTimes.map((possibleTime, i) => {
                     return (
                         <option key={i} value={possibleTime}>{possibleTime}</option>
                     )
                 })}
         </select>
-        <button type="button" onClick={handleSubmit}>Submit</button>
+        {time && <button type="button" onClick={handleSubmit}>Submit</button>}
+        </>
+            :
+            <>
+            <p>No times available, try a different date/group size</p>
+            </>}
     </>
     )
 }
