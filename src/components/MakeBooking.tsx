@@ -6,14 +6,14 @@ function MakeBooking(): JSX.Element {
     const [email, setEmail] = useState<string>("");
     const [mailingList, setMailingList] = useState<boolean>(false);
     const [numberOfPeople, setNumberOfPeople] = useState<number|null>(null);
-    const [date, setDate] = useState<string|null>(null);
+    const [date, setDate] = useState<string>(new Date().toISOString().substring(0, 10));
     const [time, setTime] = useState<string|null>(null)
 
     const handleSubmit = async () => {
         const body = {
             firstname,
             surname,
-            email: validateEmail(email),
+            // email: validateEmail(email),
             mailingList,
             numberOfPeople,
             date,
@@ -42,6 +42,8 @@ function MakeBooking(): JSX.Element {
               <input type="checkbox" onClick={() => setMailingList(true)} />
             )}
           </p>
+          <label htmlFor="date">Choose a date:</label>
+        <input type="date" id="date" min={new Date().toISOString().substring(0, 10)} value={date} onChange={(e) => setDate(e.target.value)}/>
         <button type="button" onClick={handleSubmit}>Submit</button>
     </>
     )
