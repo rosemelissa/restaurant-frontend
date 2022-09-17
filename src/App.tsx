@@ -6,6 +6,7 @@ import BookingConfirmation from "./components/BookingConfirmation";
 import AdminTools from "./components/AdminTools";
 import AdminCalendar from "./components/AdminCalendar";
 import AdminCovers from "./components/AdminCovers";
+// import "bootstrap/dist/css/bootstrap.min.css";
 
 function App(): JSX.Element {
   return (
