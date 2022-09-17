@@ -25,13 +25,13 @@ function App(): JSX.Element {
             />
           }
         />
-        <Route
+        {/* <Route
           path="/booking-confirmation"
           element={
             <BookingConfirmation
             />
           }
-        />
+        /> */}
         <Route
           path="/admin-tools"
           element={
