@@ -1,7 +1,7 @@
-function MakBookingConfirmation(): JSX.Element {
+function BookingConfirmation(): JSX.Element {
     return (
         <p>Booking confirmation</p>
     )
 }
 
-export default MakBookingConfirmation;
+export default BookingConfirmation;
