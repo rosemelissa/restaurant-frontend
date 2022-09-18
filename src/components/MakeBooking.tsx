@@ -2,6 +2,7 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import { baseUrl } from "../utils/baseUrl";
+import validateEmail from "../utils/validateEmail";
 
 function MakeBooking(): JSX.Element {
     const [firstname, setFirstname] = useState<string>("");
@@ -24,31 +25,28 @@ function MakeBooking(): JSX.Element {
         const res = await axios.get(`${baseUrl}/possibletimes/${selectedDate}/${selectedNumberOfPeople}`);
         setPossibleTimes(res.data);
         setTime(null);
-
-        //get all bookings on selected date with table capacity >= group size
-        /*
-        const possTimes = [17:00, 17:30, ...22:00]
-        for each booking time
-            delete that time and next 2 times
-        see if there are any free slots of 1.5 hours left
-        return the start times in an array = setPossibleTimes
-
-        */
     }
 
     const handleSubmit = async () => {
-        const body = {
-            firstname,
-            surname,
-            email,
-            // email: validateEmail(email),
-            mailingList,
-            numberOfPeople,
-            date,
-            time,
+        if (validateEmail(email)) {
+            try {
+                const body = {
+                    firstname,
+                    surname,
+                    email,
+                    mailingList,
+                    numberOfPeople,
+                    date,
+                    time,
+                }
+                await axios.post(`${baseUrl}/newbooking`, body);
+                setBookingSubmitted(true);
+            } catch (error) {
+                console.error(error);
+            }
+        } else {
+            window.alert('Invalid email address')
         }
-        await axios.post(`${baseUrl}/newbooking`, body);
-        setBookingSubmitted(true);
     }
 
     const startNewBooking = () => {
@@ -83,7 +81,7 @@ function MakeBooking(): JSX.Element {
         <label htmlFor="surname">Surname</label>
         <input id="surname" type="text" placeholder="Enter your surname" value={surname} onChange={(e) => setSurname(e.target.value)}/>
         <label htmlFor="email">Email address</label>
-        <input id="email" type="text" placeholder="Enter your email address" value={email} onChange={(e) => setEmail(e.target.value)}/>
+        <input required id="email" type="text" placeholder="Enter your email address" value={email} onChange={(e) => setEmail(e.target.value)}/>
         <p>
             Join our mailing list?
             {mailingList ? (
