@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { baseUrl } from "../utils/baseUrl";
 
 function MakeBooking(): JSX.Element {
@@ -11,15 +12,19 @@ function MakeBooking(): JSX.Element {
     const [date, setDate] = useState<string>(new Date().toISOString().substring(0, 10));
     const [possibleTimes, setPossibleTimes] = useState<string[]|null>(null)
     const [time, setTime] = useState<string|null>(null);
+    const [bookingSubmitted, setBookingSubmitted] = useState<boolean>(false);
 
     useEffect(() => {
-        getPossibleTimes();
-    }, [])
+        if (!bookingSubmitted) {
+            getPossibleTimes(date, numberOfPeople);
+        }
+    }, [bookingSubmitted])
 
-    const getPossibleTimes = async () => {
-        const res: string[] = await axios.get(`${baseUrl}/possibletimes/${date}/${numberOfPeople}`);
+    const getPossibleTimes = async (selectedDate: string, selectedNumberOfPeople: number) => {
+        const res = await axios.get(`${baseUrl}/possibletimes/${selectedDate}/${selectedNumberOfPeople}`);
         setPossibleTimes(res.data);
         setTime(null);
+
         //get all bookings on selected date with table capacity >= group size
         /*
         const possTimes = [17:00, 17:30, ...22:00]
@@ -35,14 +40,39 @@ function MakeBooking(): JSX.Element {
         const body = {
             firstname,
             surname,
+            email,
             // email: validateEmail(email),
             mailingList,
             numberOfPeople,
             date,
             time,
         }
+        await axios.post(`${baseUrl}/newbooking`, body);
+        setBookingSubmitted(true);
     }
 
+    const startNewBooking = () => {
+        setFirstname("");
+        setSurname("");
+        setEmail("");
+        setMailingList(false);
+        setNumberOfPeople(2);
+        setDate(new Date().toISOString().substring(0, 10));
+        setPossibleTimes(null);
+        setTime(null);
+        setBookingSubmitted(false);
+    }
+
+    if (bookingSubmitted) {
+        return (
+            <>
+                <h2>Booking confirmation</h2>
+                <p>A confirmation email has been sent to: {email}</p>
+                <p onClick={startNewBooking}>Make a new booking</p>
+                <Link to="/">Home</Link>
+            </>
+        )
+    } else {
     return (
         <>
         <p>Make a booking</p>
@@ -65,9 +95,9 @@ function MakeBooking(): JSX.Element {
             )}
           </p>
           <label htmlFor="date">Choose a date:</label>
-        <input type="date" id="date" min={new Date().toISOString().substring(0, 10)} value={date} onChange={(e) => {setDate(e.target.value); getPossibleTimes()}}/>
+        <input type="date" id="date" min={new Date().toISOString().substring(0, 10)} value={date} onChange={(e) => {setDate(e.target.value); getPossibleTimes(e.target.value, numberOfPeople)}}/>
         <label htmlFor="number-of-people">Group size (max 10):</label>
-        <select id="number-of-people" onChange={(e) => {setNumberOfPeople(parseInt(e.target.value)); getPossibleTimes()}}>
+        <select id="number-of-people" onChange={(e) => {setNumberOfPeople(parseInt(e.target.value)); getPossibleTimes(date, parseInt(e.target.value))}}>
             <option>1</option>
             <option selected>2</option>
             <option>3</option>
@@ -99,6 +129,7 @@ function MakeBooking(): JSX.Element {
             </>}
     </>
     )
+            }
 }
 
 export default MakeBooking;
