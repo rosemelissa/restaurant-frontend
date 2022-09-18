@@ -63,6 +63,8 @@ function MakeBooking(): JSX.Element {
         setBookingSubmitted(false);
     }
 
+    const allTimes = ['17:00', '17:30', '18:00', '18:30', '19:00', '19:30', '20:00', '20:30', '21:00', '21:30', '22:00'];
+
     if (bookingSubmitted) {
         return (
             <>
@@ -115,11 +117,17 @@ function MakeBooking(): JSX.Element {
         <>
         <select id="time" onChange={(e) => {setTime(e.target.value)}}>
         <option disabled selected> -- select an option -- </option>
-                {possibleTimes.map((possibleTime, i) => {
-                    return (
-                        <option key={i} value={possibleTime}>{possibleTime}</option>
+            {allTimes.map((time, i) => {
+                return (possibleTimes.includes(time) ?
+                    (
+                        <option key={i} value={time}>{time}</option>
+                    ) :
+                    (
+                        <option key={i} value={time} disabled>{time}</option>
+
                     )
-                })}
+                )
+            })}
         </select>
         {time && <button type="button" onClick={handleSubmit}>Submit</button>}
         </>
