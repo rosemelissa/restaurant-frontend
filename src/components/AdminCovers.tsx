@@ -34,21 +34,27 @@ function AdminCovers(): JSX.Element {
     }, [date])
     return (
         <>
-        <Link to="/admin-tools">Admin Tools</Link>
-        <p>Admin covers</p>
+        <Link to="/admin-tools" className='orange-button top-left-button'>Admin Tools</Link>
+        <div id="covers-and-input">
+        <h2>Admin covers</h2>
         <p>View covers for next 7 days</p>
         <label htmlFor="date-select">Select date</label>
         <input type="date" id="date-select" value={date} onChange={(e) => setDate(e.target.value)}/>
+        <div className='covers-grid'>
+            <p className="cover-date label">Date</p>
+            <p className="cover-number label">Number of people</p>
         {covers &&
             covers.map((cover, i) => {
                 return (
-                    <div key={i}>
-                    <p>Date: {cover.date}</p>
-                    <p>Number of people: {cover.total_covers}</p>
-                    </div>
+                    <>
+                    <p className={`cover-date cover-${i}`}>{cover.date}</p>
+                    <p className={`cover-number cover-${i}`}>{cover.total_covers}</p>
+                    </>
                 )
             })
         }
+        </div>
+        </div>
         </>
     )
 }
