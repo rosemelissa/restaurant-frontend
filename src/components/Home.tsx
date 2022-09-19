@@ -5,7 +5,7 @@ function Home(): JSX.Element {
         <>
             <p>Home</p>
             <Link to="/make-booking">Make booking</Link>
-            <Link to="/admin-tools">Admin tools</Link>
+            <Link to="/admin-tools">Admin Tools</Link>
         </>
     )
 }

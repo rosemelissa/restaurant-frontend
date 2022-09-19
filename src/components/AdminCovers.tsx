@@ -34,7 +34,7 @@ function AdminCovers(): JSX.Element {
     }, [date])
     return (
         <>
-        <Link to="/">Home</Link>
+        <Link to="/admin-tools">Admin Tools</Link>
         <p>Admin covers</p>
         <p>View covers for next 7 days</p>
         <label htmlFor="date-select">Select date</label>

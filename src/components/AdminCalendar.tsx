@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { baseUrl } from "../utils/baseUrl";
 import IBookingsData from "../utils/interfaces";
 import OneBookingCalendarDisplay from "./OneBookingCalendarDisplay";
@@ -18,6 +19,7 @@ function AdminCalendar(): JSX.Element {
     }, [date])
     return (
         <>
+        <Link to="/admin-tools">Admin Tools</Link>
         <p>Admin calendar</p>
         <label htmlFor="calendar-date">Pick a date</label>
         <input type="date" id="calendar-date" value={date} onChange={(e) => setDate(e.target.value)}/>
