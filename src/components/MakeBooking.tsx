@@ -75,6 +75,7 @@ function MakeBooking(): JSX.Element {
     } else {
     return (
         <>
+        <Link to="/">Home</Link>
         <p>Make a booking</p>
         <label htmlFor="firstname">First name</label>
         <input id="firstname" type="text" placeholder="Enter your first name" value={firstname} onChange={(e) => setFirstname(e.target.value)}/>

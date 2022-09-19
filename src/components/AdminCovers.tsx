@@ -1,5 +1,6 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { baseUrl } from "../utils/baseUrl";
 import getNextSevenDays from "../utils/getNextSevenDays";
 
@@ -33,6 +34,7 @@ function AdminCovers(): JSX.Element {
     }, [date])
     return (
         <>
+        <Link to="/">Home</Link>
         <p>Admin covers</p>
         <p>View covers for next 7 days</p>
         <label htmlFor="date-select">Select date</label>
