@@ -3,6 +3,33 @@ color: black;
 font-family: Arial, Helvetica, sans-serif;
 }
 
+/* #home-page {
+    display: flex;
+} */
+
+.green-button {
+    padding: 20px;
+    background-color: #295531;
+    color: white;
+    border-radius: 20px;
+    font-weight: bold;
+}
+
+#make-booking-link {
+    position: absolute;
+    top: 350px;
+}
+
+#restaurant-info {
+    width: 750px;
+    height: 350px;
+    padding: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 75px;
+    background-color: #7DA889;
+}
+
 .orange-button {
     padding: 20px;
     background-color: #DA622F;
@@ -23,18 +50,101 @@ top: 10px;
 left: 10px;
 }
 
-#admin-tools {
-    width: 500px;
+button {
+    border: 0px;
+    font-size: 16px;
+}
+
+.bottom-middle-button {
+    position: absolute;
+    top: 400px;
+}
+
+#booking-input {
+    width: 750px;
+    height: 350px;
+    padding: 50px;
     margin-left: auto;
     margin-right: auto;
-    height: 250px;
+    margin-top: 75px;
+    background-color: #7DA889;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#booking-form {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 1fr 1fr;
+    grid-template-areas: 'firstname surname'
+    'email mailing'
+    'date number';
+}
+
+#booking-input label {
+    margin: 10px;
+}
+
+#booking-input input {
+    width: max-content;
+    margin-left: 5px;
+}
+
+#booking-confirmation {
+    width: 750px;
+    height: 350px;
+    padding: 50px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 75px;
+    background-color: #7DA889;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+#booking-confirmation-buttons {
     margin-top: 100px;
-    padding-bottom: 50px;
+    display: flex;
+    
+    flex-direction: row;
+    justify-content: center;
+}
+
+#admin-tools {
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 350px;
+    margin-top: 75px;
+    padding: 50px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
     background-color: #F1E9D6;
+}
+
+#tables {
+    width: 750px;
+    margin-left: auto;
+    margin-right: auto;
+    height: 350px;
+    margin-top: 75px;
+    padding: 50px;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    justify-content: space-between;
+    background-color: #F1E9D6;
+}
+
+#table-info {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 250px;
 }
 
 #covers-and-input {

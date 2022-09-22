@@ -66,38 +66,51 @@ function MakeBooking(): JSX.Element {
     if (bookingSubmitted) {
         return (
             <>
-                <h2>Booking confirmation</h2>
+                    <Link to="/" className='green-button top-left-button'>Home</Link>
+<div id='booking-confirmation'>
+                <h1>Booking confirmation</h1>
                 <p>A confirmation email has been sent to: {email}</p>
-                <p onClick={startNewBooking}>Make a new booking</p>
-                <Link to="/">Home</Link>
+                <div id='booking-confirmation-buttons'>
+                <button type='button' className='green-button' onClick={startNewBooking}>Make a new booking</button>
+                </div>
+                
+            </div>
             </>
+            
         )
     } else {
     return (
         <>
-        <Link to="/">Home</Link>
-        <p>Make a booking</p>
-        <label htmlFor="firstname">First name</label>
+        <Link to="/" className='green-button top-left-button'>Home</Link>
+        <div id='booking-input'>
+        <h1>Make a booking</h1>
+        <div id='booking-form'>
+        <label htmlFor="firstname">First name
         <input id="firstname" type="text" placeholder="Enter your first name" value={firstname} onChange={(e) => setFirstname(e.target.value)}/>
-        <label htmlFor="surname">Surname</label>
+        </label>
+        <label htmlFor="surname">Surname
         <input id="surname" type="text" placeholder="Enter your surname" value={surname} onChange={(e) => setSurname(e.target.value)}/>
-        <label htmlFor="email">Email address</label>
+        </label>
+        <label htmlFor="email">Email address
         <input required id="email" type="text" placeholder="Enter your email address" value={email} onChange={(e) => setEmail(e.target.value)}/>
-        <p>
+        </label>
+        <label htmlFor='mailing-list'>
             Join our mailing list?
             {mailingList ? (
               <input
                 type="checkbox"
                 defaultChecked
+                id='mailing-list'
                 onClick={() => setMailingList(false)}
               />
             ) : (
-              <input type="checkbox" onClick={() => setMailingList(true)} />
+              <input type="checkbox" id='mailing-list' onClick={() => setMailingList(true)} />
             )}
-          </p>
-          <label htmlFor="date">Choose a date:</label>
+          </label>
+          <label htmlFor="date">Choose a date:
         <input type="date" id="date" min={new Date().toISOString().substring(0, 10)} value={date} onChange={(e) => {setDate(e.target.value); getPossibleTimes(e.target.value, numberOfPeople)}}/>
-        <label htmlFor="number-of-people">Group size (max 10):</label>
+        </label>
+        <label htmlFor="number-of-people">Group size (max 10):
         <select id="number-of-people" onChange={(e) => {setNumberOfPeople(parseInt(e.target.value)); getPossibleTimes(date, parseInt(e.target.value))}}>
             <option>1</option>
             <option selected>2</option>
@@ -110,9 +123,9 @@ function MakeBooking(): JSX.Element {
             <option>9</option>
             <option>10</option>
         </select>
-
-        <label htmlFor="time">Choose a time:</label>
-        {possibleTimes ?
+        </label>
+        <label htmlFor="time">Choose a time:
+        {possibleTimes &&
         <>
         <select id="time" onChange={(e) => {setTime(e.target.value)}}>
         <option disabled selected> -- select an option -- </option>
@@ -128,15 +141,19 @@ function MakeBooking(): JSX.Element {
                 )
             })}
         </select>
-        {time && <button type="button" onClick={handleSubmit}>Submit</button>}
+        {time && <button type="button" className='green-button bottom-middle-button' onClick={handleSubmit}>Submit</button>}
         </>
-            :
-            <>
-            <p>No times available, try a different date/group size</p>
+    }
+    </label>
+            {possibleTimes && possibleTimes.length === 0 && <>
+            <p id='none-free'>No times available, try a different date/group size</p>
             </>}
+            </div>
+            </div>
     </>
     )
             }
+            
 }
 
 export default MakeBooking;
