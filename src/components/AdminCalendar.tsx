@@ -21,7 +21,7 @@ function AdminCalendar(): JSX.Element {
         <>
         <Link to="/admin-tools" className='orange-button top-left-button'>Admin Tools</Link>
         <div id='calendar-and-input'>
-        <h2>Admin calendar</h2>
+        <h2>Calendar</h2>
         <label htmlFor="calendar-date">Pick a date</label>
         <input type="date" id="calendar-date" value={date} onChange={(e) => setDate(e.target.value)}/>
         <div className="calendar-grid">

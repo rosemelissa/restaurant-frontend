@@ -36,7 +36,7 @@ function AdminCovers(): JSX.Element {
         <>
         <Link to="/admin-tools" className='orange-button top-left-button'>Admin Tools</Link>
         <div id="covers-and-input">
-        <h2>Admin covers</h2>
+        <h2>Covers</h2>
         <p>View covers for next 7 days</p>
         <label htmlFor="date-select">Select date</label>
         <input type="date" id="date-select" value={date} onChange={(e) => setDate(e.target.value)}/>

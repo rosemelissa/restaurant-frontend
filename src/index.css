@@ -28,6 +28,7 @@ font-family: Arial, Helvetica, sans-serif;
     margin-right: auto;
     margin-top: 75px;
     background-color: #7DA889;
+    color: white;
 }
 
 .orange-button {
@@ -71,6 +72,7 @@ button {
     display: flex;
     flex-direction: column;
     text-align: center;
+    color: white;
 }
 
 #booking-form {
@@ -102,6 +104,7 @@ button {
     display: flex;
     flex-direction: column;
     text-align: center;
+    color: white;
 }
 
 #booking-confirmation-buttons {
@@ -283,7 +286,7 @@ button {
 }
 
 .one-booking-calendar-display.table-10 {
-    grid-column: 20 / span 1;
+    grid-column: 21 / span 1;
 }
 
 .one-booking-calendar-display.time-1700 {
