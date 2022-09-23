@@ -20,9 +20,7 @@ function Slideshow(): JSX.Element {
   useEffect(() => {
     setInterval(carousel, 3000);
   });
-  // setInterval(carousel, 3000)
 
-  // carousel();
   return (
     <img
       id="slideshow-img"
