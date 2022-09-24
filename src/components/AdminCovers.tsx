@@ -10,8 +10,8 @@ function AdminCovers(): JSX.Element {
   );
   // const [sevenDays, setSevenDays] = useState<string[]>(getNextSevenDays(new Date().toISOString().substring(0, 10)))
   const [covers, setCovers] = useState<
-    { date: string; total_covers: number }[] | null
-  >(null);
+    { date: string; total_covers: number }[]
+  >([]);
   useEffect(() => {
     const getCovers = async () => {
       const res = await axios.get(`${baseUrl}/covers/${date}`);
@@ -55,17 +55,16 @@ function AdminCovers(): JSX.Element {
         <div className="covers-grid">
           <p className="cover-date label">Date</p>
           <p className="cover-number label">Number of people</p>
-          {covers &&
-            covers.map((cover, i) => {
-              return (
-                <>
-                  <p className={`cover-date cover-${i}`}>{cover.date}</p>
-                  <p className={`cover-number cover-${i}`}>
-                    {cover.total_covers}
-                  </p>
-                </>
-              );
-            })}
+          {covers.map((cover, i) => {
+            return (
+              <>
+                <p className={`cover-date cover-${i}`}>{cover.date}</p>
+                <p className={`cover-number cover-${i}`}>
+                  {cover.total_covers}
+                </p>
+              </>
+            );
+          })}
         </div>
       </div>
     </>
