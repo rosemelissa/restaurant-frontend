@@ -18,7 +18,8 @@ function Slideshow(): JSX.Element {
     }
   };
   useEffect(() => {
-    setTimeout(carousel, 3000);
+    const timer = setTimeout(carousel, 3000);
+    return () => clearTimeout(timer);
   });
 
   return (
