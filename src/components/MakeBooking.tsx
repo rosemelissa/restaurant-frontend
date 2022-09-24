@@ -13,7 +13,7 @@ function MakeBooking(): JSX.Element {
   const [date, setDate] = useState<string>(
     new Date().toISOString().substring(0, 10)
   );
-  const [possibleTimes, setPossibleTimes] = useState<string[]>([]);
+  const [possibleTimes, setPossibleTimes] = useState<string[] | null>(null);
   const [time, setTime] = useState<string | null>(null);
   const [bookingSubmitted, setBookingSubmitted] = useState<boolean>(false);
 
@@ -65,7 +65,7 @@ function MakeBooking(): JSX.Element {
     setMailingList(false);
     setNumberOfPeople(2);
     setDate(new Date().toISOString().substring(0, 10));
-    setPossibleTimes([]);
+    setPossibleTimes(null);
     setTime(null);
     setBookingSubmitted(false);
   };
@@ -211,7 +211,7 @@ function MakeBooking(): JSX.Element {
                       -- select an option --{" "}
                     </option>
                     {allTimes.map((time, i) => {
-                      return possibleTimes.includes(time) ? (
+                      return possibleTimes && possibleTimes.includes(time) ? (
                         <option key={i} value={time}>
                           {time}
                         </option>
@@ -234,7 +234,7 @@ function MakeBooking(): JSX.Element {
                 </>
               }
             </label>
-            {possibleTimes.length === 0 && (
+            {possibleTimes && possibleTimes.length === 0 && (
               <>
                 <p id="none-free">
                   No times available, try a different date/group size
