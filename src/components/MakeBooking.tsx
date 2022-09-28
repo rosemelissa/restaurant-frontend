@@ -202,11 +202,12 @@ function MakeBooking(): JSX.Element {
                 <>
                   <select
                     id="time"
+                    value={time || ""}
                     onChange={(e) => {
                       setTime(e.target.value);
                     }}
                   >
-                    <option disabled selected>
+                    <option disabled selected value="">
                       {" "}
                       -- select an option --{" "}
                     </option>
